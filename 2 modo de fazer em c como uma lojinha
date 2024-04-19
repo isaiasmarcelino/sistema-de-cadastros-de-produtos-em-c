@@ -1,0 +1,242 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_PRODUTOS 100
+
+// Definição da estrutura do produto
+typedef struct {
+    char nome[100];
+    float preco;
+    int quantidade;
+    char cor[20];
+} Produto;
+
+// Definição da estrutura para informações da entrega
+typedef struct {
+    char metodoPagamento[30];
+    char destino[20];
+    float frete;
+} InformacoesEntrega;
+
+// Função para calcular o valor de cada parcela
+float calcularParcela(float valorTotal, int numParcelas) {
+    return valorTotal / numParcelas;
+}
+
+int main() {
+    Produto produtos[MAX_PRODUTOS];
+    InformacoesEntrega entrega;
+    int numProdutos = 0;
+    int opcao;
+
+    printf("Bem vindo às Lojas Isaias!\n");
+
+    do {
+        // Imprime menu
+        printf("\nSelecione uma opcao:\n");
+        printf("1. Cadastro de Produto\n");
+        printf("2. Finalizar Compra\n");
+        printf("3. Sair\n");
+        printf("Opcao: ");
+
+        // Captura a opção do usuário
+        scanf("%d", &opcao);
+        getchar(); // Limpa o buffer do teclado
+
+        switch (opcao) {
+            case 1: {
+                // Captura informações do produto
+                printf("\nQual produto você deseja cadastrar?\n");
+                printf("1. Televisão Samsung Smart TV 55 polegadas 4K (R$3000)\n");
+                printf("2. Televisão TCL Smart TV 32 polegadas (R$1000)\n");
+                printf("3. Sofá 2 Lugares Retrátil Lubeck Suede Grafite (R$700)\n");
+                printf("4. Sofá 4 Lugares Cama inBox Belém Retrátil/Reclinável (R$1700)\n");
+                printf("5. Cama Box Ortobom Solteiro (R$600)\n");
+                printf("6. Cama Box Ortobom Casal Molas Ensacadas (R$1300)\n");
+                printf("7. Geladeira Consul Duplex Frost Free 450L (R$3000)\n");
+                printf("8. Geladeira Consul Frost Free 342L Inox (R$2300)\n");
+                printf("9. Fogão 4 Bocas Esmaltec Preto (R$630)\n");
+                printf("10. Fogão 5 Bocas Venax Temis Inox Gas Glp (R$9000)\n");
+                printf("Opcao: ");
+                int escolha;
+                scanf("%d", &escolha);
+                getchar(); // Limpa o buffer do teclado
+
+                switch (escolha) {
+                    case 1:
+                        strcpy(produtos[numProdutos].nome, "Televisão Samsung Smart TV 55 polegadas 4K");
+                        produtos[numProdutos].preco = 3000;
+                        strcpy(produtos[numProdutos].cor, "Preto");
+                        break;
+                    case 2:
+                        strcpy(produtos[numProdutos].nome, "Televisão TCL Smart TV 32 polegadas");
+                        produtos[numProdutos].preco = 1000;
+                        strcpy(produtos[numProdutos].cor, "Preto");
+                        break;
+                    case 3:
+                        strcpy(produtos[numProdutos].nome, "Sofá 2 Lugares Retrátil Lubeck Suede Grafite");
+                        produtos[numProdutos].preco = 700;
+                        strcpy(produtos[numProdutos].cor, "Grafite");
+                        break;
+                    case 4:
+                        strcpy(produtos[numProdutos].nome, "Sofá 4 Lugares Cama inBox Belém Retrátil/Reclinável");
+                        produtos[numProdutos].preco = 1700;
+                        strcpy(produtos[numProdutos].cor, "Bege");
+                        break;
+                    case 5:
+                        strcpy(produtos[numProdutos].nome, "Cama Box Ortobom Solteiro");
+                        produtos[numProdutos].preco = 600;
+                        strcpy(produtos[numProdutos].cor, "Branco");
+                        break;
+                    case 6:
+                        strcpy(produtos[numProdutos].nome, "Cama Box Ortobom Casal Molas Ensacadas");
+                        produtos[numProdutos].preco = 1300;
+                        strcpy(produtos[numProdutos].cor, "Branco");
+                        break;
+                    case 7:
+                        strcpy(produtos[numProdutos].nome, "Geladeira Consul Duplex Frost Free 450L");
+                        produtos[numProdutos].preco = 3000;
+                        strcpy(produtos[numProdutos].cor, "Branco");
+                        break;
+                    case 8:
+                        strcpy(produtos[numProdutos].nome, "Geladeira Consul Frost Free 342L Inox");
+                        produtos[numProdutos].preco = 2300;
+                        strcpy(produtos[numProdutos].cor, "Inox");
+                        break;
+                    case 9:
+                        strcpy(produtos[numProdutos].nome, "Fogão 4 Bocas Esmaltec Preto");
+                        produtos[numProdutos].preco = 630;
+                        strcpy(produtos[numProdutos].cor, "Preto");
+                        break;
+                    case 10:
+                        strcpy(produtos[numProdutos].nome, "Fogão 5 Bocas Venax Temis Inox Gas Glp");
+                        produtos[numProdutos].preco = 9000;
+                        strcpy(produtos[numProdutos].cor, "Inox");
+                        break;
+                    default:
+                        printf("Opcao invalida. Tente novamente.\n");
+                        continue;
+                }
+
+                printf("Quantidade do produto: ");
+                scanf("%d", &produtos[numProdutos].quantidade);
+                getchar(); // Limpa o buffer do teclado
+
+                // Incrementa o número de produtos cadastrados
+                numProdutos++;
+
+                printf("Produto cadastrado com sucesso!\n");
+                break;
+            }
+            case 2:
+                // Captura informações da entrega
+                printf("\nEscolha o método de pagamento:\n");
+                printf("1. Pix (Sem juros)\n");
+                printf("2. Cartão de Crédito ou Débito (2%% de juros)\n");
+                printf("3. Dinheiro (Sem juros)\n");
+                int metodo;
+                scanf("%d", &metodo);
+                getchar(); // Limpa o buffer do teclado
+
+                switch (metodo) {
+                    case 1:
+                        strcpy(entrega.metodoPagamento, "Pix");
+                        break;
+                    case 2:
+                        strcpy(entrega.metodoPagamento, "Cartão");
+                        break;
+                    case 3:
+                        strcpy(entrega.metodoPagamento, "Dinheiro");
+                        break;
+                    default:
+                        printf("Opcao invalida. Tente novamente.\n");
+                        continue;
+                }
+
+                if (strcmp(entrega.metodoPagamento, "Cartão") == 0) {
+                    // Se o pagamento for com cartão, aumenta o preço de todos os produtos em 2%
+                    for (int i = 0; i < numProdutos; i++) {
+                        produtos[i].preco *= 1.02;
+                    }
+
+                    printf("\nDeseja parcelar a compra? (1 - Sim / 2 - Não): ");
+                    int parcelar;
+                    scanf("%d", &parcelar);
+                    getchar(); // Limpa o buffer do teclado
+                    if (parcelar == 1) {
+                        printf("Em quantas vezes deseja parcelar? (1 a 12 vezes): ");
+                        int numParcelas;
+                        scanf("%d", &numParcelas);
+                        getchar(); // Limpa o buffer do teclado
+                        if (numParcelas < 1 || numParcelas > 12) {
+                            printf("Número de parcelas inválido.\n");
+                            continue;
+                        }
+                        float valorTotal = 0;
+                        for (int i = 0; i < numProdutos; i++) {
+                            valorTotal += produtos[i].preco * produtos[i].quantidade;
+                        }
+                        float valorParcela = calcularParcela(valorTotal, numParcelas);
+                        printf("Compra parcelada em %d vezes de R$%.2f.\n", numParcelas, valorParcela);
+                    }
+                }
+
+                printf("\nDestino da entrega:\n");
+                printf("1. Recife (R$150)\n");
+                printf("2. Olinda (R$200)\n");
+                printf("3. Jaboatão (R$70)\n");
+                int destino;
+                scanf("%d", &destino);
+                getchar(); // Limpa o buffer do teclado
+
+                switch (destino) {
+                    case 1:
+                        strcpy(entrega.destino, "Recife");
+                        entrega.frete = 150;
+                        break;
+                    case 2:
+                        strcpy(entrega.destino, "Olinda");
+                        entrega.frete = 200;
+                        break;
+                    case 3:
+                        strcpy(entrega.destino, "Jaboatão");
+                        entrega.frete = 70;
+                        break;
+                    default:
+                        printf("Opcao invalida. Tente novamente.\n");
+                        continue;
+                }
+
+                // Adiciona 2% de juros no caso de pagamento com cartão de crédito ou débito
+                if (metodo == 2)
+                    entrega.frete *= 1.02;
+
+                printf("\nCompra finalizada com sucesso!\n");
+                printf("Metodo de Pagamento: %s\n", entrega.metodoPagamento);
+                printf("Destino da Entrega: %s (Frete: R$%.2f)\n", entrega.destino, entrega.frete);
+                break;
+
+            case 3:
+                // Sai do loop
+                break;
+
+            default:
+                // Opção inválida
+                printf("Opcao invalida. Tente novamente.\n");
+        }
+    } while (opcao != 3);
+
+    printf("\nObrigado por cadastrar e comprar seu produto com às Lojas Isaias, Volte sempre!\n");
+
+    // Imprime a lista de produtos cadastrados
+    printf("\nProdutos cadastrados:\n");
+    printf("----------------------------\n");
+    printf("Nome\t\tPreco\tQuantidade\tCor\n");
+    printf("----------------------------\n");
+    for (int i = 0; i < numProdutos; i++) {
+        printf("%s\t%.2f\t%d\t\t%s\n", produtos[i].nome, produtos[i].preco, produtos[i].quantidade, produtos[i].cor);
+    }
+    printf("----------------------------\n");
+
+    return 0;
+}
