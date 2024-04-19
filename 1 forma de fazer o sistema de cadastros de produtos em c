@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Definição da estrutura do produto
+struct Produto {
+    int codigo;
+    char nome[50];
+    char modelo[50];
+    char cor[20];
+    float preco;
+};
+
+// Função para cadastrar um produto
+void cadastrarProduto(struct Produto produtos[], int *totalProdutos) {
+    printf("\n=== CADASTRO DE PRODUTO ===\n");
+
+    // Verifica se há espaço disponível no vetor de produtos
+    if (*totalProdutos < 100) {
+        struct Produto novoProduto;
+        
+        printf("Código do produto: ");
+        scanf("%d", &novoProduto.codigo);
+        printf("Nome do produto: ");
+        scanf("%s", novoProduto.nome);
+        printf("Modelo do produto: ");
+        scanf("%s", novoProduto.modelo);
+        printf("Cor do produto: ");
+        scanf("%s", novoProduto.cor);
+        printf("Preço do produto: ");
+        scanf("%f", &novoProduto.preco);
+
+        // Adiciona o novo produto ao vetor de produtos
+        produtos[*totalProdutos] = novoProduto;
+        (*totalProdutos)++;
+
+        printf("Produto cadastrado com sucesso!\n");
+    } else {
+        printf("Não é possível cadastrar mais produtos. Limite atingido.\n");
+    }
+}
+
+// Função para exibir todos os produtos cadastrados
+void exibirProdutos(struct Produto produtos[], int totalProdutos) {
+    printf("\n=== LISTA DE PRODUTOS ===\n");
+    if (totalProdutos > 0) {
+        for (int i = 0; i < totalProdutos; i++) {
+            printf("Código: %d | Nome: %s | Modelo: %s | Cor: %s | Preço: R$ %.2f\n", produtos[i].codigo, produtos[i].nome, produtos[i].modelo, produtos[i].cor, produtos[i].preco);
+        }
+    } else {
+        printf("Nenhum produto cadastrado.\n");
+    }
+}
+
+int main() {
+    struct Produto produtos[100];
+    int totalProdutos = 0;
+    int opcao;
+
+    do {
+        printf("\n=== MENU ===\n");
+        printf("1. Cadastrar novo produto\n");
+        printf("2. Exibir produtos cadastrados\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrarProduto(produtos, &totalProdutos);
+                break;
+            case 2:
+                exibirProdutos(produtos, totalProdutos);
+                break;
+            case 3:
+                printf("→→ Encerrando o sistema de cadastro de produtos ☻☻...\n");
+                break;
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+        }
+    } while (opcao != 3);
+
+    return 0;
+}
